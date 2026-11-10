@@ -56,6 +56,56 @@ app.post('/api/v1/tours', (req, res) => {
   );
 });
 
+app.get('/api/v1/tours/:id', (req, res) => {
+  console.log(req.params);
+
+  const id = req.params.id * 1;
+  const tour = tours.find((el) => el.id === id);
+
+  if (id > tours.length) {
+    res.status(404).send({
+      status: 'failed',
+      message: 'Invalid ID',
+    });
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour,
+    },
+  });
+});
+
+app.patch('/api/v1/tours/:id', (req, res) => {
+  if (req.params.id * 1 > tours.length) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID',
+    });
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour: 'Update tour here...',
+    },
+  });
+});
+
+app.delete('/api/v1/tours/:id', (req, res) => {
+  if (req.params.id * 1 > tours.length) {
+    res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID',
+    });
+  }
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});
+
 const port = 3000;
 app.listen(port, () => {
   console.log('App is running on port 3000');
