@@ -1,15 +1,10 @@
 const express = require('express');
 const fs = require('fs');
-// const { request } = require('http')
 const morgan = require('morgan');
 
 const app = express();
 
 // Middlewares
-
-// Middleware is a function that modifies incoming
-// request data.
-// Appends body to request object
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -18,19 +13,6 @@ app.use((req, res, next) => {
 });
 
 app.use(morgan('dev'));
-
-app.use((req, res, next) => {
-  req.requestTime = new Date().toISOString();
-  next();
-});
-
-// app.get('/', (req, res) => {
-//   res.status(200).json({ message: 'Hello from express app!', app: 'Natours' });
-// });
-
-// app.post('/', (req, res) => {
-//   res.send('You can post to this endpoint...');
-// });
 
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`),
@@ -126,11 +108,42 @@ const deleteTour = (req, res) => {
   });
 };
 
-// app.get('/api/v1/tours', getALLTours);
-// app.post('/api/v1/tours', createTour);
-// app.get('/api/v1/tours/:id', getTour);
-// app.patch('/api/v1/tours/:id', updateTour);
-// app.delete('/api/v1/tours/:id', deleteTour);
+const getAllUsers = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not defined yet',
+  });
+};
+
+const getUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not defined yet',
+  });
+};
+
+const createUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not defined yet',
+  });
+};
+
+const updateUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not defined yet',
+  });
+};
+
+const deleteUser = (req, res) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not defined yet',
+  });
+};
+
+// ROUTES
 
 app.route('/api/v1/tours').get(getALLTours).post(createTour);
 
@@ -139,6 +152,14 @@ app
   .get(getTour)
   .patch(updateTour)
   .delete(deleteTour);
+
+app.route('/api/v1/users').get(getAllUsers).post(createUser);
+
+app
+  .route('/api/v1/users/:id')
+  .get(getUser)
+  .patch(updateUser)
+  .delete(deleteUser);
 
 const port = 3000;
 app.listen(port, () => {
