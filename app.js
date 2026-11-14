@@ -1,8 +1,11 @@
 const express = require('express');
 const fs = require('fs');
-const { request } = require('http');
+// const { request } = require('http')
+const morgan = require('morgan');
 
 const app = express();
+
+// Middlewares
 
 // Middleware is a function that modifies incoming
 // request data.
@@ -13,6 +16,8 @@ app.use((req, res, next) => {
   console.log('Hello from middleware');
   next();
 });
+
+app.use(morgan('dev'));
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
@@ -30,6 +35,8 @@ app.use((req, res, next) => {
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`),
 );
+
+// ROUTE HANDLERS
 
 const getALLTours = (req, res) => {
   console.log(req.requestTime);
