@@ -8,6 +8,9 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
+// Built-in middleware to server static files
+// Static files files located in file system
+// that can't be accessed through browser
 app.use(express.static(`${__dirname}/public`));
 
 app.use((req, res, next) => {
@@ -15,7 +18,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 // ROUTES
 app.use('/api/v1/tours', tourRouter);
