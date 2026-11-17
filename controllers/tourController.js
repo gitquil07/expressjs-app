@@ -15,6 +15,17 @@ exports.checkID = (req, res, next, val) => {
   next();
 };
 
+exports.checkBody = (req, res, next) => {
+  if (!req.body.name || !req.body.price) {
+    return res.status(400).send({
+      status: 'fail',
+      message: 'Missing name or price',
+    });
+  }
+
+  next();
+};
+
 exports.getALLTours = (req, res) => {
   console.log(req.requestTime);
   // Jsend json formating standart in REST api
