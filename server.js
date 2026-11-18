@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 
 // Reads and inserts environment variables
 // from config.env file
-// Should be placed before app,
+// Should be placed before app
 // if app access env variables
 dotenv.config({ path: './config.env' });
 
